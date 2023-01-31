@@ -4,7 +4,6 @@ from .forms import ExpenseSearchForm
 from .models import Expense, Category
 from .reports import summary_per_category
 
-
 class ExpenseListView(ListView):
     model = Expense
     paginate_by = 5
@@ -17,6 +16,14 @@ class ExpenseListView(ListView):
             name = form.cleaned_data.get('name', '').strip()
             if name:
                 queryset = queryset.filter(name__icontains=name)
+
+            from_date = form.cleaned_data.get('from_date')
+            if from_date:
+                queryset = queryset.filter(date__gte=from_date)
+
+            to_date = form.cleaned_data.get('to_date')
+            if to_date:
+                queryset = queryset.filter(date__lte=to_date)
 
         return super().get_context_data(
             form=form,
