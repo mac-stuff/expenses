@@ -29,14 +29,11 @@ class ExpenseListView(ListView):
             if categories:
                 queryset = queryset.filter(category__in=categories)
             
-        sort = self.request.GET.get("sort")
         dir = self.request.GET.get("dir")
-       
-        if sort:
-            if dir == "asc":
-                queryset = queryset.order_by('date')
-            if dir == "desc":
-                queryset = queryset.order_by('-date')
+        if dir == "asc":
+            queryset = queryset.order_by('date')
+        if dir == "desc":
+            queryset = queryset.order_by('-date')
 
         return super().get_context_data(
             form=form,
