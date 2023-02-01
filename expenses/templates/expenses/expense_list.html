@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load sorting_tags %}
 
 <a href="{% url 'expenses:expense-create' %}">add</a>
 
@@ -17,7 +18,7 @@
 		<th>category</th>
 		<th>name</th>
 		<th>amount</th>
-		<th>date</th>
+		<th>{% anchor date _("date") %}</th>
 		<th>actions</th>
 	  </tr>
 	</thead>
