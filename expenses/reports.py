@@ -14,3 +14,8 @@ def summary_per_category(queryset):
         .values_list('category_name', 's')
     ))
 
+def total_amount(queryset):
+    return OrderedDict(
+        queryset
+        .aggregate(total=Sum('amount'))
+    )
