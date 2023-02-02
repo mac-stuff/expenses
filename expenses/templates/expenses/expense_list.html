@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load sorting_tags %}
 
 <a href="{% url 'expenses:expense-create' %}">add</a>
 
@@ -17,7 +18,7 @@
 		<th>category</th>
 		<th>name</th>
 		<th>amount</th>
-		<th>date</th>
+		<th>{% anchor date _("date") %}</th>
 		<th>actions</th>
 	  </tr>
 	</thead>
@@ -56,4 +57,22 @@
 	{% endfor %}
   </tr>
 </table>
+
+<hr>
+  <caption>Total amount spent:</caption>
+ {{total_amount.total|floatformat:2}}
+
+<hr>
+<table border="1">
+	<caption>Total summary per year-month</caption>
+	<tr>
+		{% for date, total in total_summary_per_year_month.items %}
+		<tr>
+			<td>{{date|date:"Y M"}}</td>
+			<td>{{total|floatformat:2}}</td>
+		</tr>
+		{% endfor %}
+	</tr>
+	</table>
+	
 {% endblock %}
