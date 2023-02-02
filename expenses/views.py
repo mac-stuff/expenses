@@ -53,6 +53,6 @@ class CategoryListView(ListView):
 
         return super().get_context_data(
             object_list=queryset
-            .annotate(no_expenses=Count('expense')),
+            .annotate(number_of_expenses=Count('expense')),
             **kwargs)
 
